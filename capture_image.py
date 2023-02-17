@@ -1,5 +1,9 @@
 #! /usr/bin/env python3
 
+"""
+capture an image using gphoto2
+"""
+
 import os
 import subprocess
 import gphoto2 as gp
