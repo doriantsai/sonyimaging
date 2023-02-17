@@ -11,6 +11,9 @@ from datetime import datetime
 import time
 
 
+# TODO will have to setup enumerations for each setting
+# TODO or possibly grab the enumerations from the api
+
 camera = gp.Camera()
 camera.init()
 
@@ -51,8 +54,6 @@ if OK >= gp.GP_OK:
 config = camera.get_config()
 OK, wb_config = gp.gp_widget_get_child_by_name(config, 'whitebalance')
 
-# import code
-# code.interact(local=dict(globals(), **locals())) 
 if OK >= gp.GP_OK:
     wb = wb_config.get_value()
     print(f'wb currently: {wb}')
@@ -64,6 +65,22 @@ if OK >= gp.GP_OK:
     print(f'wb_now set: {wb_now}')
     # apply config to camera
     camera.set_config(config)
+
+# set aperture/f-stop
+config = camera.get_config()
+OK, f_config = gp.gp_widget_get_child_by_name(config, 'f-number')
+
+if OK >= gp.GP_OK:
+    fstop = f_config.get_value()
+    print(f'fstop currently: {fstop}')
+    fstop_set = "2.8"
+    f_config.set_value(fstop_set)
+    fstop_now = f_config.get_value()
+    # set the config
+    print(f'fstop_now set: {fstop_now}')
+    # apply config to camera
+    camera.set_config(config)
+
 
 # get configuration tree
 # config_list = gp.check_result(gp.gp_camera_list_config(camera))
