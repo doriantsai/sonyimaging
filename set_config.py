@@ -27,7 +27,6 @@ if OK >= gp.GP_OK:
     # print(f'iso range: {iso_range}')
     iso_set = str(200)
     iso_config.set_value(iso_set)
-    time.sleep(1)
     iso_now = iso_config.get_value()
     # set the config
     print(f'iso set: {iso_now}')
@@ -42,10 +41,27 @@ if OK >= gp.GP_OK:
     print(f'shutterspeed currently: {shutterspeed}')
     shutterspeed_set = "1/10"
     speed_config.set_value(shutterspeed_set)
-    time.sleep(1)
     shutterspeed_now = speed_config.get_value()
     # set the config
     print(f'shutterspeed_now set: {shutterspeed_now}')
+    # apply config to camera
+    camera.set_config(config)
+
+# set whitebalance
+config = camera.get_config()
+OK, wb_config = gp.gp_widget_get_child_by_name(config, 'whitebalance')
+
+# import code
+# code.interact(local=dict(globals(), **locals())) 
+if OK >= gp.GP_OK:
+    wb = wb_config.get_value()
+    print(f'wb currently: {wb}')
+    wb_set = "Preset 1"
+    wb_config.set_value(wb_set)
+    time.sleep(1)
+    wb_now = wb_config.get_value()
+    # set the config
+    print(f'wb_now set: {wb_now}')
     # apply config to camera
     camera.set_config(config)
 
@@ -54,8 +70,7 @@ if OK >= gp.GP_OK:
 # for n in range(len(config_list)):
 #     print(config_list.get_name(n), config_list.get_value(n))
 
-# import code
-# code.interact(local=dict(globals(), **locals())) 
+
 
 
     
